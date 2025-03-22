@@ -1,6 +1,6 @@
 # ytgo-bot
 
-Discord bot to call ytgo
+Discord bot to get the URL of the first result from YouTube search
 
 <img height="128px" width="128px" src="./ytgo.png" alt="ytgo logo"><img height="128px" src="./ytgo-banner.png" alt="ytgo banner">
 
