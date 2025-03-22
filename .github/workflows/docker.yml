@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish Docker Image and Deploy to Render
 
 on:
   push:
@@ -39,3 +39,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    needs: push_to_registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Bot to Render
+        env:
+          DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl "$DEPLOY_URL"
