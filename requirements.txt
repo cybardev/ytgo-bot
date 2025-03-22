@@ -6,12 +6,13 @@ async-timeout==5.0.1
 attrs==24.3.0
 Brotli==1.1.0
 cffi==1.17.1
-discord.py==2.4.0
+faust-cchardet==2.1.19
 frozenlist==1.5.0
 idna==3.10
+msgspec==0.19.0
 multidict==6.1.0
 propcache==0.2.1
+py-cord==2.6.1
 pycares==4.5.0
 pycparser==2.22
-PyNaCl==1.5.0
 yarl==1.18.3
