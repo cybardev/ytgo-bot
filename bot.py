@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from multiprocessing import Process
+import logging
 import os
 import subprocess
 import http.server as web
@@ -42,9 +43,17 @@ def web_server(server_class=web.HTTPServer, handler_class=web.BaseHTTPRequestHan
     httpd.serve_forever()
 
 
+def persistent_runner(f):
+    while True:
+        try:
+            f()
+        except Exception as e:
+            logging.error(e)
+
+
 if __name__ == "__main__":
-    p1 = Process(target=bot_server)
-    p2 = Process(target=web_server)
+    p1 = Process(target=persistent_runner, args=(bot_server,))
+    p2 = Process(target=persistent_runner, args=(web_server,))
 
     p1.start()
     p2.start()
