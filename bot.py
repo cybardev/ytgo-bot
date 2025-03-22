@@ -27,6 +27,10 @@ def bot_server():
 
 
 def web_server(server_class=web.HTTPServer, handler_class=web.BaseHTTPRequestHandler):
+    """
+    We use this because Render requires free web services
+    to bind to a port regardless if it's used in the application
+    """
     server_address = ("", 10000)
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
