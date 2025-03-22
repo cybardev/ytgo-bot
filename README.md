@@ -2,7 +2,7 @@
 
 Discord bot to call ytgo
 
-<img height="128px" width="128px" src="./ytgo.png" alt="ytgo logo">
+<img height="128px" width="128px" src="./ytgo.png" alt="ytgo logo"><img height="128px" src="./ytgo-banner.png" alt="ytgo banner">
 
 ## Usage
 
