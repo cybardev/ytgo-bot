@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 
 import os
+import subprocess
+
 import discord
 
 
 # This bot requires the 'message_content' intent.
 class BotClient(discord.Client):
+    prefix = "!yt"
+
     async def on_ready(self):
         print(f"Logged in as {self.user}")
 
@@ -14,12 +18,12 @@ class BotClient(discord.Client):
         if message.author == self.user:
             return
 
-        if message.content.startswith("!yt"):
-            response = "<PLACEHOLDER>"
-            # TODO: get search query from msg
-            # TODO: call ytgo with search query
-            # TODO: send URL returned by ytgo
-            await message.channel.send(response)
+        if message.content.startswith(self.prefix):
+            query = message.content[len(self.prefix) :].strip()
+            cmd = subprocess.run(
+                ["ytgo", "-d", query], stdout=subprocess.PIPE, text=True
+            )
+            await message.channel.send(cmd.stdout)
 
 
 if __name__ == "__main__":
