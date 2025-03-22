@@ -2,6 +2,8 @@
 
 Discord bot to call ytgo
 
+<img height="128px" width="128px" src="./ytgo.png">
+
 > [!WARNING]
 > This bot is under development and does not work as intended. This message will be removed once the proper functionality is added.
 
