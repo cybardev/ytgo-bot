@@ -26,7 +26,9 @@ pkgs.mkShell {
     python
     pip
     pycord
-    yarl
     aiohttp
+    faust-cchardet
+    msgspec
+    yarl
   ];
 }
