@@ -30,7 +30,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/cybardev/ytgo-bot
+            ghcr.io/${{ github.repository }}
 
       - name: Build and push Docker application image
         uses: docker/build-push-action@v6
