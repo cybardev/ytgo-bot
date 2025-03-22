@@ -9,7 +9,7 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to GitHub Packages
+    name: Push Docker Image to GitHub Packages
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -41,6 +41,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
+    name: Deploy Bot to Render
     needs: push_to_registry
     runs-on: ubuntu-latest
     env:
