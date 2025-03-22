@@ -6,7 +6,7 @@
   ...
 }:
 let
-  pythonPackages = pkgs.python313Packages;
+  pythonPackages = pkgs.python312Packages;
   pycord =
     let
       pname = "py_cord";
@@ -26,5 +26,7 @@ pkgs.mkShell {
     python
     pip
     pycord
+    yarl
+    aiohttp
   ];
 }
