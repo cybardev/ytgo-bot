@@ -14,6 +14,7 @@ logger.setLevel(logging.INFO)
 
 
 @bot.slash_command(description="Get the first video URL from a YouTube search")
+@discord.option("query", description="What to search")
 async def yt(ctx, query: str):
     cmd = subprocess.run(["ytgo", "-d", query], stdout=subprocess.PIPE, text=True)
     await ctx.respond(cmd.stdout)
