@@ -13,6 +13,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY --from=dev /build/cmd/ytgo/ytgo /bin/ytgo
-
 COPY bot.py ./
+
+EXPOSE 10000
 CMD [ "python", "bot.py" ]
