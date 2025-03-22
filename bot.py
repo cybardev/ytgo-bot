@@ -8,33 +8,21 @@ import http.server as web
 
 import discord
 
+bot = discord.Bot()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
-# This bot requires the 'message_content' intent.
-class BotClient(discord.Client):
-    prefix = "!yt"
 
-    async def on_ready(self):
-        print(f"Logged in as {self.user}")
-
-    async def on_message(self, message):
-        # don't respond to own (bot) msgs
-        if message.author == self.user:
-            return
-
-        if message.content.startswith(self.prefix):
-            query = message.content[len(self.prefix) :].strip()
-            cmd = subprocess.run(
-                ["ytgo", "-d", query], stdout=subprocess.PIPE, text=True
-            )
-            await message.channel.send(cmd.stdout)
+@bot.slash_command()
+async def yt(ctx, query: str):
+    cmd = subprocess.run(["ytgo", "-d", query], stdout=subprocess.PIPE, text=True)
+    await ctx.respond(cmd.stdout)
 
 
 def bot_server():
-    intents = discord.Intents.default()
-    intents.message_content = True
-
-    client = BotClient(intents=intents)
-    client.run(os.getenv("BOT_TOKEN"))
+    logger.info("Starting Bot...")
+    bot.run(os.getenv("BOT_TOKEN"))
+    logger.info("Bot Stopped...")
 
 
 def web_server(server_class=web.HTTPServer, handler_class=web.BaseHTTPRequestHandler):
@@ -47,8 +35,11 @@ def persistent_runner(f):
     while True:
         try:
             f()
+        except KeyboardInterrupt:
+            logger.warning("Received SIGINT. Exiting function run.")
+            break
         except Exception as e:
-            logging.error(e)
+            logger.error(e)
 
 
 if __name__ == "__main__":
