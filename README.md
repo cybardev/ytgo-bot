@@ -11,11 +11,12 @@ Discord bot to call ytgo
 2. From the left list of tabs, select Installation and copy the Install Link.
 
 3. Visit the Install Link in a browser and add your bot to desired server(s) and/or guild(s).
+    - Add scope `application.commands` and `bot` with permissions `Send Messages`, `Send Messages in Threads`, and `Use Slash Commands` to the Invite Link before using it (Discord Guild Install `>` Installation `>` Guild Install)
 
 4. Deploy bot to Render using the button under [Deployment](#deployment).
     - Set the `BOT_TOKEN` environment variable to your bot's token (Discord Developer Portal `>` Bot `>` Token)
 
-2. Messages with `!yt` are tracked. Send `!yt <search term>` in a server/guild with the bot to return the URL of the first search result on YouTube with the specified query.
+5. Send `/yt <search terms>` in a server/guild with the bot to return the URL of the first search result on YouTube with the specified query.
 
 ## Deployment
 
