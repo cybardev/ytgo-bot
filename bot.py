@@ -9,7 +9,13 @@ from utils import main
 bot = discord.Bot()
 
 
-@bot.slash_command(description="Get the first video URL from a YouTube search")
+@bot.slash_command(
+    description="Get the first video URL from a YouTube search",
+    integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },
+)
 @discord.option("query", description="What to search")
 async def yt(ctx, query: str):
     cmd = subprocess.run(["ytgo", "-d", query], stdout=subprocess.PIPE, text=True)
