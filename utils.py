@@ -1,38 +1,37 @@
-from multiprocessing import Process
-import http.server as web
-import logging
+import asyncio
+import contextlib
 import os
 
+from aiohttp import web
 
-def web_service(server_class=web.HTTPServer, handler_class=web.BaseHTTPRequestHandler):
+
+async def _web_handler(request):
     """
-    We use this because Render requires free web services
-    to bind to a port regardless if it's used in the application
+    We use this because Render requires free web services to
+    bind to a port regardless if it's used in the application
     """
-    server_address = ("", 10000)
-    httpd = server_class(server_address, handler_class)
-    httpd.serve_forever()
+    return web.Response(
+        text="Bot has been awakened from sleep. You can use it again now."
+    )
 
 
-def main(bot_service):
-    main_proc = Process(target=bot_service, args=(os.getenv("BOT_TOKEN"),))
-    web_proc = Process(target=web_service)
+async def _bot_server(bot):
+    async with bot:
+        await bot.start(os.getenv("BOT_TOKEN"))
 
-    logger = logging.getLogger(__name__)
 
-    while True:
-        try:
-            main_proc.start()
-            web_proc.start()
+async def _run_bot(_app, bot):
+    task = asyncio.create_task(_bot_server(bot))
 
-            main_proc.join()
-            web_proc.join()
-        except KeyboardInterrupt:
-            logger.warning("Received SIGINT. Terminating processes.")
-            if main_proc.is_alive():
-                main_proc.terminate()
-            if web_proc.is_alive():
-                web_proc.terminate()
-            break
-        except Exception as e:
-            logger.error(e)
+    yield
+
+    task.cancel()
+    with contextlib.suppress(asyncio.CancelledError):
+        await task  # Ensure any exceptions etc. are raised.
+
+
+def main(bot):
+    app = web.Application()
+    app.add_routes([web.get("/", _web_handler)])
+    app.cleanup_ctx.append(lambda _app: _run_bot(_app, bot))
+    web.run_app(app, port=10000)
