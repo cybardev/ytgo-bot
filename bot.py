@@ -16,7 +16,8 @@ bot = discord.Bot()
     },
 )
 @discord.option("query", description="What to search")
-async def yt(ctx, query: str):
+@discord.option("embed", description="Whether to show video embed")
+async def yt(ctx, query: str, embed: bool = True):
     cmd = subprocess.run(["ytgo", "-d", query], stdout=subprocess.PIPE, text=True)
     await ctx.respond(cmd.stdout)
 
