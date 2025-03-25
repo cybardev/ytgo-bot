@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
+import os
 import subprocess
 
 import discord
-
-from utils import main
 
 bot = discord.Bot()
 
@@ -23,4 +22,4 @@ async def yt(ctx, query: str):
 
 
 if __name__ == "__main__":
-    main(bot)
+    bot.run(os.getenv("BOT_TOKEN"))

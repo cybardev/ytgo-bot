@@ -41,17 +41,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-  deploy:
-    name: Deploy Bot to Render
-    needs: push_to_registry
-    runs-on: ubuntu-latest
-    env:
-      DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
-    steps:
-      - name: Deploy Bot to Render
-        if: ${{ env.DEPLOY_URL != '' }}
-        run: curl "$DEPLOY_URL"
-      - name: Notify of unset secret
-        if: ${{ env.DEPLOY_URL == '' }}
-        run: echo "Secret 'RENDER_DEPLOY_HOOK' not set. Skipped Deployment"
