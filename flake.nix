@@ -1,17 +1,23 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-    utils.url = "github:numtide/flake-utils";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-25.05";
   outputs =
-    { nixpkgs, utils, ... }:
-    utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      {
-        devShell = import ./shell.nix { inherit pkgs; };
-      }
-    );
+    { nixpkgs, ... }:
+    let
+      forEachSystem =
+        f:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system:
+          f {
+            pkgs = import nixpkgs { inherit system; };
+          }
+        );
+    in
+    {
+      devShells = forEachSystem (
+        { pkgs }:
+        {
+          default = import ./shell.nix { inherit pkgs; };
+        }
+      );
+    };
 }
