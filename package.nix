@@ -27,7 +27,11 @@ python.pkgs.buildPythonApplication {
     faust-cchardet
     msgspec
     yarl
-    pkgs.cy.ytgo
+    (pkgs.cy.ytgo.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        postFixup = "";
+      }
+    ))
   ];
   src = ./.;
   meta.mainProgram = "ytgo-bot.py";

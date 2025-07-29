@@ -24,6 +24,10 @@ pkgs.mkShell {
     faust-cchardet
     msgspec
     yarl
-    pkgs.cy.ytgo
+    (pkgs.cy.ytgo.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        postFixup = "";
+      }
+    ))
   ];
 }
