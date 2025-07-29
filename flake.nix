@@ -35,11 +35,9 @@
           ytgo-bot = import ./package.nix { inherit pkgs; };
         in
         {
+          inherit ytgo-bot;
           default = ytgo-bot;
-          image = import ./container.nix {
-            inherit pkgs;
-            inherit ytgo-bot;
-          };
+          image = import ./container.nix { inherit pkgs ytgo-bot; };
         }
       );
     };
