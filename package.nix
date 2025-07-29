@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  python = pkgs.python312;
   pythonPackages = pkgs.python312Packages;
   pycord =
     let
@@ -15,8 +16,10 @@ let
       };
     };
 in
-pkgs.mkShell {
-  packages = with pythonPackages; [
+python.pkgs.buildPythonApplication {
+  pname = "ytgo-bot";
+  version = "0.1.0";
+  propagatedBuildInputs = with pythonPackages; [
     python
     pip
     pycord
@@ -26,4 +29,6 @@ pkgs.mkShell {
     yarl
     pkgs.cy.ytgo
   ];
+  src = ./.;
+  meta.mainProgram = "bot.py";
 }
