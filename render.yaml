@@ -5,9 +5,7 @@ services:
     plan: free
     region: ohio
     name: ytgo-bot
-    runtime: image
-    image:
-      url: ghcr.io/cybardev/ytgo-bot:1.1.1
+    runtime: docker
     envVars:
       - key: BOT_TOKEN
         sync: false
