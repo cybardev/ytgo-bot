@@ -22,8 +22,6 @@ python.pkgs.buildPythonApplication {
   pname = "ytgo-bot";
   version = "0.1.0";
   propagatedBuildInputs = with pythonPackages; [
-    python
-    pip
     pycord
     aiohttp
     faust-cchardet
