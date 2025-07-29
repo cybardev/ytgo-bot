@@ -30,5 +30,5 @@ python.pkgs.buildPythonApplication {
     pkgs.cy.ytgo
   ];
   src = ./.;
-  meta.mainProgram = "bot.py";
+  meta.mainProgram = "ytgo-bot.py";
 }

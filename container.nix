@@ -8,7 +8,7 @@ pkgs.dockerTools.buildImage {
     pathsToLink = [ "/bin" ];
   };
   config = {
-    Cmd = [ "bot.py" ];
+    Cmd = [ "ytgo-bot.py" ];
     ExposedPorts = {
       "10000" = { };
     };
