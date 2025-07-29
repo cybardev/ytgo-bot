@@ -10,9 +10,11 @@ let
     pythonPackages.buildPythonPackage {
       doCheck = false;
       inherit pname version;
-      src = pkgs.fetchPypi {
-        inherit pname version;
-        sha256 = "sha256-NgZPIl8se73f5ULV7VgfKldE9hjgOQk8980mWaWLx5s=";
+      src = pkgs.fetchFromGitHub {
+        owner = "Pycord-Development";
+        repo = "pycord";
+        tag = "v${version}";
+        hash = "sha256-35GfgXmTED3/jmshRwtRXPns+UkeKX2tG1ksGTfwjnY=";
       };
     };
 in
