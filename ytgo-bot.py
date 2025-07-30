@@ -49,6 +49,7 @@ bot = discord.Bot()
 @discord.option("num", description="Which search result to use")
 @discord.option("embed", description="Whether to show video embed")
 async def yt(ctx, query: str, num: int = 1, embed: bool = True):
+    await ctx.defer()
     cmd = subprocess.run(
         ["ytgo", "-d", query, "-n", str(num)], stdout=subprocess.PIPE, text=True
     )

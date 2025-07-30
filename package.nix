@@ -20,7 +20,7 @@ let
 in
 python.pkgs.buildPythonApplication {
   pname = "ytgo-bot";
-  version = "1.2.0";
+  version = "1.2.1";
   propagatedBuildInputs = with pythonPackages; [
     pycord
     aiohttp
