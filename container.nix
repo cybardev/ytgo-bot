@@ -1,7 +1,7 @@
 { pkgs, ytgo-bot, ... }:
 pkgs.dockerTools.buildImage {
   name = "ytgo-bot";
-  tag = "1.2.0";
+  tag = "1.2.1";
   copyToRoot = pkgs.buildEnv {
     name = "image-root";
     paths = [ ytgo-bot ];
